@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'custom_button.dart';
-import 'new_screen.dart';
+import 'login_screen.dart';
+import 'register_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -12,14 +13,25 @@ class MainScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-  
+            const Text(
+              "Hello",
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              "Welcome to Little Drop",
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 30),
+
+            // login
             BotonPersonalizado(
               texto: 'Login',
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const NewScreen(),
+                    builder: (context) => const LoginScreen(),
                   ),
                 );
               },
@@ -30,16 +42,24 @@ class MainScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
+            // Sign Up
             BotonPersonalizado(
               texto: 'Sign Up',
-              onPressed: null, // después le agregas funcionalidad
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const RegisterScreen(),
+                  ),
+                );
+              },
               colorFondo: Colors.white,
               colorTexto: const Color.fromARGB(255, 149, 15, 172),
               colorBorde: const Color.fromARGB(255, 149, 15, 172),
               paddingHorizontal: 32,
               paddingVertical: 5,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 30),
 
             Row(
               mainAxisSize: MainAxisSize.min,

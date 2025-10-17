@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'custom_button.dart';
+import 'custom_button.dart';  // Asegúrate de que esté importado
 import 'login_screen.dart';
 import 'register_screen.dart';
+import 'location_screen.dart';  // Importa la nueva pantalla
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -23,6 +24,24 @@ class MainScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30),
+
+            // Botón para obtener ubicación (nuevo)
+            BotonPersonalizado(
+              texto: 'Obtener Ubicación',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LocationScreen(),
+                  ),
+                );
+              },
+              colorFondo: const Color.fromARGB(255, 149, 15, 172),
+              colorTexto: Colors.white,
+              paddingHorizontal: 40,
+              paddingVertical: 7,
+            ),
+            const SizedBox(height: 16),
 
             // login
             BotonPersonalizado(
@@ -60,7 +79,6 @@ class MainScreen extends StatelessWidget {
               paddingVertical: 5,
             ),
             const SizedBox(height: 30),
-          //so
             Row(
               mainAxisSize: MainAxisSize.min,
               children: const [

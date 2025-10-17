@@ -1,15 +1,32 @@
 import 'package:flutter/material.dart';
-import 'custom_button.dart';
+import 'custom_button.dart'; 
 import 'custom_input.dart';
+import 'data_screen.dart';
+import 'user_manager.dart'; 
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(   // evitar overflow
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -20,24 +37,25 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
 
-              const CustomInput(
+              CustomInput(
                 labelText: 'Nombre',
                 prefixIcon: Icons.person,
+                controller: _nameController,
               ),
               const SizedBox(height: 16),
 
-              const CustomInput(
+              CustomInput(
                 labelText: 'Contraseña',
                 prefixIcon: Icons.lock,
                 obscureText: true,
+                controller: _passwordController,
               ),
               const SizedBox(height: 30),
 
               Align(
-              alignment: Alignment.centerRight,
+                alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                   
                   },
                   child: const Text(
                     "¿Olvidaste tu contraseña?",
@@ -53,7 +71,37 @@ class LoginScreen extends StatelessWidget {
               BotonPersonalizado(
                 texto: 'Iniciar Sesión',
                 onPressed: () {
-                  Navigator.pop(context);
+                  final name = _nameController.text.trim();
+                  final password = _passwordController.text.trim();
+
+                  if (name.isEmpty || password.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Por favor, ingresa nombre y contraseña')),
+                    );
+                    return;
+                  }
+
+                 if (UserManager.loginUser(name, password)) {
+
+                    final userData = UserManager.getUserData()!; 
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DataScreen(
+                          title: 'Datos de Usuario',
+                          name: userData['name'],
+                          email: userData['email'],
+                          phone: userData['phone'],
+                          password: userData['password'],
+                          isLogin: true,
+                        ),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Usuario no encontrado o datos incorrectos. Registrarse primero.')),
+                    );
+                  }
                 },
                 colorFondo: const Color.fromARGB(255, 149, 15, 172),
                 colorTexto: Colors.white,

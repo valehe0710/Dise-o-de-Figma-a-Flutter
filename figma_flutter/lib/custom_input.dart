@@ -5,7 +5,7 @@ class CustomInput extends StatelessWidget {
   final IconData? prefixIcon;
   final bool obscureText;
   final TextInputType? keyboardType;
-  final TextEditingController? controller; // Opcional, para manejar el valor si lo necesitas
+  final TextEditingController? controller; 
 
   const CustomInput({
     super.key,

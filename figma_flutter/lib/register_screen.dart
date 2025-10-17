@@ -1,15 +1,38 @@
 import 'package:flutter/material.dart';
 import 'custom_button.dart';
 import 'custom_input.dart';
+import 'data_screen.dart';
+import 'user_manager.dart'; 
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(   // que no se tape con barra
-        child: SingleChildScrollView(   // scroll si no cabe todo
+      body: SafeArea(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -20,44 +43,87 @@ class RegisterScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
 
-              const CustomInput(
+              CustomInput(
                 labelText: 'Nombre',
                 prefixIcon: Icons.person,
+                controller: _nameController,
               ),
               const SizedBox(height: 16),
 
-              const CustomInput(
+              CustomInput(
                 labelText: 'Email',
                 prefixIcon: Icons.email,
                 keyboardType: TextInputType.emailAddress,
+                controller: _emailController,
               ),
               const SizedBox(height: 16),
 
-              const CustomInput(
+              CustomInput(
                 labelText: 'Teléfono',
                 prefixIcon: Icons.phone,
                 keyboardType: TextInputType.phone,
+                controller: _phoneController,
               ),
               const SizedBox(height: 16),
 
-              const CustomInput(
+              CustomInput(
                 labelText: 'Contraseña',
                 prefixIcon: Icons.lock,
                 obscureText: true,
+                controller: _passwordController,
               ),
               const SizedBox(height: 30),
 
-              const CustomInput(
+              CustomInput(
                 labelText: 'Confirmar Contraseña',
                 prefixIcon: Icons.lock,
                 obscureText: true,
+                controller: _confirmPasswordController,
               ),
               const SizedBox(height: 30),
 
               BotonPersonalizado(
                 texto: 'Registrarse',
                 onPressed: () {
-                  Navigator.pop(context);
+                  final name = _nameController.text.trim();
+                  final email = _emailController.text.trim();
+                  final phone = _phoneController.text.trim();
+                  final password = _passwordController.text.trim();
+                  final confirmPassword = _confirmPasswordController.text.trim();
+
+                  if (name.isEmpty || email.isEmpty || phone.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Por favor, ingresa todos los datos')),
+                    );
+                    return;
+                  }
+
+                  if (password != confirmPassword) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Las contraseñas no coinciden')),
+                    );
+                    return;
+                  }
+                  UserManager.registerUser (
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    password: password,
+                  );
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DataScreen(
+                        title: 'Datos de Registro',
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        password: password,
+                        isLogin: false,
+                      ),
+                    ),
+                  );
                 },
                 colorFondo: const Color.fromARGB(255, 149, 15, 172),
                 colorTexto: Colors.white,

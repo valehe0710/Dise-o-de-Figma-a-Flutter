@@ -27,7 +27,7 @@ class MainScreen extends StatelessWidget {
 
             // Botón para obtener ubicación (nuevo)
             BotonPersonalizado(
-              texto: 'Obtener Ubicación',
+              texto: 'Obtener Ubicacion',
               onPressed: () {
                 Navigator.push(
                   context,

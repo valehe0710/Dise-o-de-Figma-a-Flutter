@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                "Inicio de Sesión",
+                "Inicio de Sesion",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 30),
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               BotonPersonalizado(
-                texto: 'Iniciar Sesión',
+                texto: 'Iniciar Sesion',
                 onPressed: () {
                   final name = _nameController.text.trim();
                   final password = _passwordController.text.trim();

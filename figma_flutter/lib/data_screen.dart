@@ -43,7 +43,7 @@ class DataScreen extends StatelessWidget {
               const SizedBox(height: 10),
               _buildDataRow('Email:', email),
               const SizedBox(height: 10),
-              _buildDataRow('Teléfono:', phone),
+              _buildDataRow('Telefono:', phone),
               const SizedBox(height: 10),
               _buildDataRow('Contraseña:', password), 
               const SizedBox(height: 30),

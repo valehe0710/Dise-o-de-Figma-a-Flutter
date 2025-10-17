@@ -59,7 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               const SizedBox(height: 16),
 
               CustomInput(
-                labelText: 'Teléfono',
+                labelText: 'Telefono',
                 prefixIcon: Icons.phone,
                 keyboardType: TextInputType.phone,
                 controller: _phoneController,

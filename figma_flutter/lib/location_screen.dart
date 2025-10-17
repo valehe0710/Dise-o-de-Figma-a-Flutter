@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'custom_button.dart'; 
-import 'package:geolocator/geolocator.dart';  // Importa la dependencia para geolocalización
+import 'package:geolocator/geolocator.dart';  //dependencia para geolocalización
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({super.key});
@@ -10,14 +10,14 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  String _locationMessage = 'Presiona el botón para obtener tu ubicación';  // Variable para mostrar el mensaje o coordenadas
+  String _locationMessage = 'Presiona el botón para obtener tu ubicación';  // mostrar el mensaje o coordenadas
 
-  // Método asincrónico para obtener la ubicación
+  // metodo asincrnico para obtener la ubicación
   Future<void> _getCurrentLocation() async {
-    bool serviceEnabled;  // Variable para verificar si el servicio de ubicación está habilitado
-    LocationPermission permission;  // Variable para manejar los permisos
+    bool serviceEnabled;  // variable para verificar si el servicio de ubicación esta habilitado
+    LocationPermission permission;  // manejar los permisos
 
-    // Paso 1: Verificar si el servicio de ubicación está habilitado
+    // Paso1: Verificar si el servicio de ubicación está habilitado
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       setState(() {
@@ -26,13 +26,13 @@ class _LocationScreenState extends State<LocationScreen> {
       return;
     }
 
-    // Paso 2: Verificar y solicitar permisos
+    // Paso2: verificar y solicitar permisos
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         setState(() {
-          _locationMessage = 'Permiso de ubicación denegado. Por favor, habilita los permisos en la configuración.';
+          _locationMessage = 'Permiso de ubicacion denegado. Por favor, habilita los permisos en la configuracion.';
         });
         return;
       }
@@ -40,15 +40,15 @@ class _LocationScreenState extends State<LocationScreen> {
 
     if (permission == LocationPermission.deniedForever) {
       setState(() {
-        _locationMessage = 'Permiso de ubicación denegado permanentemente. No podemos solicitar acceso.';
+        _locationMessage = 'Permiso de ubicacion denegado permanentemente. No podemos solicitar acceso.';
       });
       return;
     }
 
-    // Paso 3: Obtener la posición actual si todo está bien
+    // Paso3: obtener la posicion actual si todo está bien
     try {
       Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,  // Precisión alta para GPS
+        desiredAccuracy: LocationAccuracy.high,  
       );
 
       // Paso 4: Actualizar el estado con las coordenadas obtenidas
@@ -57,7 +57,7 @@ class _LocationScreenState extends State<LocationScreen> {
       });
     } catch (e) {
       setState(() {
-        _locationMessage = 'Error al obtener la ubicación: $e';
+        _locationMessage = 'Error al obtener la ubicacion: $e';
       });
     }
   }
@@ -66,7 +66,7 @@ class _LocationScreenState extends State<LocationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Obtener Ubicación'),
+        title: const Text('Obtener Ubicacion'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
@@ -80,9 +80,9 @@ class _LocationScreenState extends State<LocationScreen> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
-            BotonPersonalizado(  // Usamos tu botón personalizado
-              texto: 'Obtener Ubicación',
-              onPressed: _getCurrentLocation,  // Llama al método para obtener la ubicación
+            BotonPersonalizado(  
+              texto: 'Obtener Ubicacion',
+              onPressed: _getCurrentLocation,  //el metodo se llama para obtener ubicacion
               colorFondo: Colors.blue,
               colorTexto: Colors.white,
               paddingHorizontal: 40,

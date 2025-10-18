@@ -19,14 +19,16 @@
 
 ### Paso 3. Se creo una nueva pantalla **location_screen.dart**
 #### Se solicita permisos de ubicacion y optenemos la pocicion actual del usuario (longitud y latitud). 
-![Image](https://github.com/user-attachments/assets/b816ddba-4a7b-4900-bc74-239840b16fc6)
-
-####Tambien se muestra el boton que al ser presionado actualiza las cordenadas. 
 ![Image](https://github.com/user-attachments/assets/c7f97ae6-304f-44cb-84da-6b8d9ec598ff)
 
+#### Tambien se muestra el boton que al ser presionado actualiza las cordenadas. 
+![Image](https://github.com/user-attachments/assets/e0512885-c908-406c-8284-c4b4553f6501)
+
 #### Tambien se implemento lo de clases pasadas, pequeña base de datos dentro de flutter: 
+![Image](https://github.com/user-attachments/assets/b816ddba-4a7b-4900-bc74-239840b16fc6)
 ![Image](https://github.com/user-attachments/assets/7cb5cecf-68c7-434f-9c01-b016fb5a4c39)
 
 ![Image](https://github.com/user-attachments/assets/2f544d79-ebf9-4eaa-b731-603b06a68a5a)
+
 
 
